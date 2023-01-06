@@ -88,23 +88,25 @@ class day03 extends StatelessWidget {
                       Icon(
                         Icons.person_outline,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Employee",
-                              style: TextStyle(
-                                fontSize: 18,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Employee",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 282,
-                              child: Text(
-                                  "Supoorting our employee Thank you everyo dfjhsdhjfb jhjk"),
-                            ),
-                          ],
+                              Text(
+                                "Supoorting our employee Thank you everyo dfjhsdhjfb jhjk",
+                                // maxLines: 5,
+                                // softWrap: true,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
