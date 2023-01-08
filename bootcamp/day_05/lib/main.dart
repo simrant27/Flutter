@@ -14,6 +14,7 @@ class Demo extends StatefulWidget {
 class _DemoState extends State<Demo> {
   int count = 0;
   String appBarTitle = " ";
+  Color bgColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,29 @@ class _DemoState extends State<Demo> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // FloatingActionButton(
+                //   onPressed: () {},
+                // ),
+                GestureDetector(
+                  onTap: () {
+                    print("clicked");
+
+                    setState(() {
+                      if (bgColor == Colors.black) {
+                        bgColor = Colors.red;
+                      } else {
+                        bgColor = Colors.black;
+                      }
+                    });
+                  },
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: bgColor,
+                        borderRadius: BorderRadius.circular(100)),
+                  ),
+                ),
                 TextField(
                   onChanged: (value) {
                     appBarTitle = value;
