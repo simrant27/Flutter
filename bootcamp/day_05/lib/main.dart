@@ -64,7 +64,7 @@ class _DemoState extends State<Demo> {
                     height: 100,
                     width: 100,
                     decoration: BoxDecoration(
-                        color: bgColor,
+                        color: (count % 2 == 0) ? Colors.yellow : Colors.amber,
                         borderRadius: BorderRadius.circular(100)),
                   ),
                 ),
