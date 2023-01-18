@@ -25,14 +25,23 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: person.length,
-          itemBuilder: (context, i) {
+        // child: ListView.builder(
+        //   itemCount: person.length,
+        //   itemBuilder: (context, i) {
+        //     return ListTile(
+        //       title: Text(person[i]["name"]!),
+        //       subtitle: Text(person[i]["address"]!),
+        //     );
+        //   },
+        // ),
+
+        child: Column(
+          children: person.map((p) {
             return ListTile(
-              title: Text(person[i]["name"]!),
-              subtitle: Text(person[i]["address"]!),
+              title: Text(p["name"]!),
+              subtitle: Text(p["address"]!),
             );
-          },
+          }).toList(),
         ),
       ),
     );
