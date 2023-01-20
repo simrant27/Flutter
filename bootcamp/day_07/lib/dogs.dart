@@ -46,32 +46,30 @@ class Dogs extends StatelessWidget {
         appBar: AppBar(
           title: Text("Dogs"),
         ),
-        body: Center(
-          child: Column(
-            children: [
-              for (var dog in dogs)
-                ListTile(
-                  leading: dog["icon"],
-                  title: Text(
-                    dog["name"]!,
-                    style: TextStyle(
-                      color: dog["textColor"],
-                    ),
+        body: Column(
+          children: [
+            for (var dog in dogs)
+              ListTile(
+                leading: dog["icon"],
+                title: Text(
+                  dog["name"]!,
+                  style: TextStyle(
+                    color: dog["textColor"],
                   ),
-                  subtitle: Text(dog["color"]!),
                 ),
-              ListTile(
-                leading: Icon(Icons.donut_large),
-                title: Text("MJ"),
-                subtitle: Text("grey"),
+                subtitle: Text(dog["color"]!),
               ),
-              ListTile(
-                leading: Icon(Icons.donut_large),
-                title: Text("Maau"),
-                subtitle: Text("grey"),
-              ),
-            ],
-          ),
+            ListTile(
+              leading: Icon(Icons.donut_large),
+              title: Text("MJ"),
+              subtitle: Text("grey"),
+            ),
+            ListTile(
+              leading: Icon(Icons.donut_large),
+              title: Text("Maau"),
+              subtitle: Text("grey"),
+            ),
+          ],
         ),
       ),
     );

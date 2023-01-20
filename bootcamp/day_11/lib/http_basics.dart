@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:day_11/goPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +13,7 @@ class HttpBasicPage extends StatefulWidget {
 
 class _HttpBasicPageState extends State<HttpBasicPage> {
   String responseFromServer = "";
-
+  List parseData = [];
   @override
   void initState() {
     getDataFromInternet();
@@ -30,19 +31,36 @@ class _HttpBasicPageState extends State<HttpBasicPage> {
 
     print(data.body.runtimeType);
 
-    // var parseData = jsonDecode(data.body);
-    // print(parseData.runtimeType);
+    parseData = jsonDecode(data.body);
+    print(parseData.runtimeType);
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Center(
+            //     child: ListView(
+            //   children: [
+            //     Text("Respond From Server"),
+            //     Text(responseFromServer),
+            //   ],
+            // ),
             child: ListView(
-          children: [
-            Text("Respond From Server"),
-            Text(responseFromServer),
-          ],
+          children: parseData.map((e) {
+            return ListTile(
+              title: Text(e["title"]),
+              subtitle: Text("${e["userId"]}"),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: ((context) {
+                  return GoPage(
+                    titleOfPage: e["title"],
+                    bodyOfPage: e["body"],
+                  );
+                })));
+              },
+            );
+          }).toList(),
         )),
       ),
     );
