@@ -31,21 +31,33 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.black,
       key: _scaffoldKey,
       appBar: AppBar(
+        leadingWidth: 150,
         leading: InkWell(
-          child: Icon(
-            Icons.play_circle_fill_outlined,
-            color: Colors.red,
+          child: Row(
+            children: [
+              Icon(
+                Icons.play_circle_fill_outlined,
+                color: Colors.red,
+              ),
+              Text(
+                "YOUTUBE",
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ],
           ),
           onTap: () {
             _scaffoldKey.currentState!.openDrawer();
           },
         ),
-        title: Container(
-            child: Row(
-          children: [
-            Text("YOUTUBE"),
-          ],
-        )),
+        // title: Container(
+        //   child: Row(
+        //     children: [
+        //       Text("YOUTUBE"),
+        //     ],
+        //   ),
+        // ),
         backgroundColor: Colors.black,
         toolbarHeight: 50,
         elevation: 5,
@@ -57,7 +69,7 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Icon(Icons.add_alert_sharp),
+              Icon(Icons.notifications),
               IconButton(
                 onPressed: () {
                   Navigator.of(context)
@@ -106,6 +118,15 @@ class HomePage extends StatelessWidget {
                       style: bottomNavText,
                     )
                   ],
+                  // children: [
+                  //   IconButton(
+                  //     onPressed: () {},
+                  //     icon: Icon(
+                  //       Icons.home,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  // ],
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
@@ -182,6 +203,7 @@ class HomePage extends StatelessWidget {
                           bodyTitleBox,
                           Expanded(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   "Tarak Meheta Ka Ooltah Chashmah - Episode 687 - Full Episode",

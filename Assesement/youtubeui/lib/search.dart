@@ -18,6 +18,10 @@ class Search extends StatelessWidget {
         ),
         title: TextField(
           style: TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            hintText: 'Search here',
+          ),
+          autofocus: true,
         ),
       ),
     );

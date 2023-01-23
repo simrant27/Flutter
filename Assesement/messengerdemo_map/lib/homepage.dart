@@ -72,10 +72,10 @@ class _HomePageState extends State<HomePage> {
     {
       "profileURL": "http://xsgames.co/randomusers/assets/avatars/pixel/16.jpg",
       "name": "Sapana",
-      "seen": false,
+      "seen": true,
       "messageTime": "12:00 am",
       "lastMessage": "Happy Birthday",
-      "sentby": "me:",
+      "sentby": "",
       "hasMissedCall": false,
       "hasOngoingCall": false,
     },
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
       "name": "Rohit",
       "seen": true,
       "messageTime": "6:30 pm",
-      "lastMessage": "marlas hai ahile",
+      "lastMessage": "marlas hai ahile talai pakh la la la lala ",
       "sentby": "me:",
       "hasMissedCall": false,
       "hasOngoingCall": false,
@@ -160,6 +160,29 @@ class _HomePageState extends State<HomePage> {
       "hasOngoingCall": false,
     },
   ];
+
+  List<Map<dynamic, dynamic>> last = [
+    {
+      "name": "Chat",
+      "icon": Icons.chat,
+    },
+    {
+      "name": "Call",
+      "icon": Icons.video_camera_back,
+    },
+    {
+      "name": "People",
+      "icon": Icons.people,
+    },
+    {
+      "name": "Stories",
+      "icon": Icons.photo,
+    },
+    {
+      "name": "Setting",
+      "icon": Icons.person,
+    }
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,6 +207,26 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
       ),
       drawer: Drawer(),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              for (var l in last)
+                Column(
+                  children: [
+                    Icon(
+                      l["icon"],
+                      color: Colors.grey,
+                    ),
+                    Text(l["name"]),
+                  ],
+                )
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -224,6 +267,7 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   subtitle: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       user["hasMissedCall"]
                           ? Row(
@@ -244,35 +288,55 @@ class _HomePageState extends State<HomePage> {
                               ? Text(
                                   user["name"] + " started a video call",
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 )
                               : user["seen"]
-                                  ? Row(
-                                      children: [
-                                        Text(user["sentby"]),
-                                        Text(
-                                          user["lastMessage"],
-                                        ),
-                                      ],
+                                  ? Flexible(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // user["sentby"
+                                          //     ? Text(user["sentby"])
+                                          //     : Text(""),
+                                          Text(user["sentby"]),
+                                          Flexible(
+                                            // width: 100,
+                                            child: Text(
+                                              user["lastMessage"],
+                                              style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     )
-                                  : Text(
-                                      user["lastMessage"],
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
+                                  : Flexible(
+                                      child: Text(
+                                        user["lastMessage"],
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                       SizedBox(
-                        width: 16,
+                        width: 8,
                       ),
                       Text(user["messageTime"]),
                     ],
                   ),
                   trailing: Container(
-                    width: 50,
+                    // padding: EdgeInsets.only(left: 50),
+                    // width: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         user["hasMissedCall"]
                             ? Icon(
