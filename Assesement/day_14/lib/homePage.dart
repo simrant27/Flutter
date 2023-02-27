@@ -3,8 +3,6 @@ import 'package:day_14/textEntered.dart';
 
 import 'package:day_14/textWritten.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
