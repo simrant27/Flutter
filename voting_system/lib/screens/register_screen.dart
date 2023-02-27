@@ -113,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               .showSnackBar(SnackBar(content: Text(decoded['message'])));
         }
       }
-      clearData();
+      // clearData();
     }
   }
 
