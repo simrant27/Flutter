@@ -18,7 +18,8 @@ class _AddPostsState extends State<AddPosts> {
 
   final TextEditingController _tittleController = TextEditingController();
   final TextEditingController _descriptionCOntroller = TextEditingController();
-  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
 
   String? titleValidation(String? value) {
     if (value == null || value.isEmpty || value.trim() == '') {
@@ -41,7 +42,8 @@ class _AddPostsState extends State<AddPosts> {
     return null;
   }
 
-  DateTime _date = DateTime.now();
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now();
 
   // final TextEditingController _description = TextEditingController();
   @override
@@ -99,18 +101,30 @@ class _AddPostsState extends State<AddPosts> {
               fieldController: _descriptionCOntroller,
               handleValidation: descriptionValidation,
             ),
-            CustomVotingField(
+            CustomDatePicker(
+              date: _startDate,
+              onChanged: (dateTime) {
+                setState(() {
+                  _startDate = dateTime;
+                });
+              },
               label: "Start Date",
               placeholder: "Enter Start Date",
-              // fieldController: _dateController,
-              handleValidation: dateValidation,
+              fieldController: _startDateController,
+              // handleValidation: dateValidation,
               suffixIcon: Icons.calendar_month_outlined,
             ),
-            CustomVotingField(
+            CustomDatePicker(
+              onChanged: (dateTime) {
+                setState(() {
+                  _endDate = dateTime;
+                });
+              },
+              date: _endDate,
               label: "End Date",
               placeholder: "Enter Start Date",
-              // fieldController: _dateController,
-              handleValidation: dateValidation,
+              fieldController: _endDateController,
+              // handleValidation: dateValidation,
               suffixIcon: Icons.calendar_month_outlined,
             ),
             SizedBox(
@@ -123,8 +137,15 @@ class _AddPostsState extends State<AddPosts> {
               ),
               onPressed: () {
                 _formkey.currentState!.validate();
+                print(_tittleController.text);
+                print(_descriptionCOntroller.text);
+                print(_startDate);
+                print(_endDate);
+                // print(_date.millisecondsSinceEpoch);
+                // print(_startDateController.toString());
+                // print(_endDateController);
               },
-              child: Text("Submit"),
+              child: Text("Create Post"),
             ) //display
           ]),
         ),

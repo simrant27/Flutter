@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          candidate[index]["post"],
+                          candidate[index]["title"],
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),

@@ -3,14 +3,14 @@
 
 // import '../utils/constants/constants.dart';
 
-// class CustomVotingField extends StatefulWidget {
+// class CustomDatePicker extends StatefulWidget {
 //   String label;
 //   String placeholder;
 //   TextEditingController fieldController;
 //   String? Function(String?) handleValidation;
 
 //   IconData? suffixIcon;
-//   CustomVotingField({
+//   CustomDatePicker({
 //     super.key,
 //     required this.label,
 //     required this.placeholder,
@@ -20,10 +20,10 @@
 //   });
 
 //   @override
-//   State<CustomVotingField> createState() => _CustomVotingFieldState();
+//   State<CustomDatePicker> createState() => _CustomDatePickerState();
 // }
 
-// class _CustomVotingFieldState extends State<CustomVotingField> {
+// class _CustomDatePickerState extends State<CustomDatePicker> {
 //   DateTime _date = DateTime.now();
 
 //   @override

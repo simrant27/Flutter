@@ -3,28 +3,32 @@ import 'package:intl/intl.dart';
 
 import '../utils/constants/constants.dart';
 
-class CustomVotingField extends StatefulWidget {
+class CustomDatePicker extends StatefulWidget {
+  DateTime date;
   String label;
   String placeholder;
-  // TextEditingController fieldController;
-  String? Function(String?) handleValidation;
+  TextEditingController fieldController;
+  Function(DateTime dateTime) onChanged;
+  // String? Function(String?) handleValidation;
 
   IconData? suffixIcon;
-  CustomVotingField({
+  CustomDatePicker({
+    required this.date,
     super.key,
     required this.label,
     required this.placeholder,
-    // required this.fieldController,
-    required this.handleValidation,
+    required this.fieldController,
+    required this.onChanged,
+    // required this.handleValidation,
     this.suffixIcon,
   });
 
   @override
-  State<CustomVotingField> createState() => _CustomVotingFieldState();
+  State<CustomDatePicker> createState() => _CustomDatePickerState();
 }
 
-class _CustomVotingFieldState extends State<CustomVotingField> {
-  DateTime _date = DateTime.now();
+class _CustomDatePickerState extends State<CustomDatePicker> {
+  late DateTime _date = widget.date;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +57,8 @@ class _CustomVotingFieldState extends State<CustomVotingField> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                DateFormat('yyyy-MM-dd').format(_date),
+                // DateFormat().format(_date),
+                DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY).format(_date),
                 style: TextStyle(fontSize: 16),
               ),
               IconButton(
@@ -66,6 +71,7 @@ class _CustomVotingFieldState extends State<CustomVotingField> {
                   ).then((value) {
                     setState(() {
                       _date = value!;
+                      widget.onChanged(value);
                     });
                   });
                 },

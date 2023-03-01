@@ -132,7 +132,7 @@ class _AllVotingsState extends State<AllVotings> {
                 icon: Icon(Icons.edit),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => EditPosts(),
+                    builder: (context) => AddPosts(),
                   ));
                 },
               ),
