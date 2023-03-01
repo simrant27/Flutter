@@ -8,6 +8,8 @@ import 'package:voting_system/utils/constants/constants.dart';
 import 'package:voting_system/screens/home_screen.dart';
 import 'package:voting_system/screens/login_screen.dart';
 
+import '../models/user.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -65,6 +67,11 @@ class _SplashScreenState extends State<SplashScreen> {
         print("Login found from last saved data");
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => HomeScreen()));
+
+        Map<String, dynamic> obtainedUser = jsonDecoded['data']['user'];
+        obtainedUser['token'] = savedToken;
+
+        User userFromResponse = User.fromJson(obtainedUser);
         return jsonDecoded['data']['user'];
       } else {
         Navigator.of(context).pushReplacement(
