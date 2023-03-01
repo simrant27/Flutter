@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:voting_system/screens/login_screen.dart';
 import 'package:voting_system/screens/splash_screen.dart';
 
+import '../utils/constants/candidates.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -11,33 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  List<Map<String, dynamic>> candidate = [
-    {
-      "post": "President of Nepal",
-      "opening": "23 Feb, 2023",
-      "closing": "29 Feb, 2023",
-      "count": 0,
-    },
-    {
-      "post": "Prime Minister of Nepal",
-      "opening": "23 Feb, 2023",
-      "closing": "29 Feb, 2023",
-      "count": 0,
-    },
-    {
-      "post": "Home Minister of Nepal",
-      "opening": "23 Feb, 2023",
-      "closing": "29 Feb, 2023",
-      "count": 0,
-    },
-    {
-      "post": "Cheif Minister of Nepal",
-      "opening": "23 Feb, 2023",
-      "closing": "29 Feb, 2023",
-      "count": 0,
-    },
-  ];
-
   Icon openingIcon = Icon(
     Icons.access_time_outlined,
     color: Colors.green,

@@ -5,14 +5,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:voting_system/utils/constants.dart';
+import 'package:voting_system/utils/constants/constants.dart';
 import 'package:voting_system/screens/home_screen.dart';
 
 // utils
-import '../utils/functions.dart';
-import '/utils/constants.dart';
+
+import '../utils/constants/constants.dart';
 
 // screens
+import '../utils/functions/accessToken.dart';
 import '/screens/register_screen.dart';
 
 // components

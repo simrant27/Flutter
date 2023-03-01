@@ -4,12 +4,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:voting_system/screens/home_screen.dart';
-import 'package:voting_system/utils/functions.dart';
 
 // utils
-import '/utils/constants.dart';
+import '../utils/constants/constants.dart';
 
 // screens
+import '../utils/functions/accessToken.dart';
 import '/screens/login_screen.dart';
 
 // components
@@ -45,13 +45,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? nameValidation(String? value) {
     if (value == null || value.isEmpty || value.trim() == '') {
       return 'First Name is required';
-    }
-    return null;
-  }
-
-  String? lastNameValidation(String? value) {
-    if (value == null || value.isEmpty || value.trim() == '') {
-      return 'Last Name is required';
     }
     return null;
   }

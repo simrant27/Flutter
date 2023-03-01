@@ -1,0 +1,38 @@
+List<Map<String, dynamic>> candidate = [
+  {
+    "title": "President of Nepal",
+    "opening": "23 Feb, 2023",
+    "closing": "29 Feb, 2023",
+    "count": 0,
+    "description": "sfghsd dgfhs hdfgbh jdfj jdf",
+    "active": true,
+    "shown": false,
+  },
+  {
+    "title": "Prime Minister of Nepal",
+    "opening": "23 Feb, 2023",
+    "closing": "29 Feb, 2023",
+    "count": 0,
+    "description": "sfghsd dgfhs hdfgbh jdfj jdf",
+    "active": true,
+    "shown": false,
+  },
+  {
+    "title": "Home Minister of Nepal",
+    "opening": "23 Feb, 2023",
+    "closing": "29 Feb, 2023",
+    "count": 0,
+    "description": "sfghsd dgfhs hdfgbh jdfj jdf",
+    "active": true,
+    "shown": false,
+  },
+  {
+    "title": "Cheif Minister of Nepal",
+    "opening": "23 Feb, 2023",
+    "closing": "29 Feb, 2023",
+    "count": 0,
+    "description": "sfghsd dgfhs hdfgbh jdfj jdf",
+    "active": true,
+    "shown": false,
+  },
+];

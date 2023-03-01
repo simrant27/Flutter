@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 // utils
-import '/utils/constants.dart';
+import '../utils/constants/constants.dart';
 
 class CustomButton extends StatelessWidget {
   String name;

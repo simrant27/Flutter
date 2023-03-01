@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import '/utils/constants.dart';
+import '../utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomLinkBadge extends StatelessWidget {
