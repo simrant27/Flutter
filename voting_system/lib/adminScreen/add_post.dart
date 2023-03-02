@@ -12,6 +12,9 @@ import 'package:voting_system/provider/user_provider.dart';
 import 'package:voting_system/utils/constants/constants.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/voting.dart';
+import '../provider/voting_provider.dart';
+
 class AddPosts extends StatefulWidget {
   const AddPosts({super.key});
 
@@ -168,9 +171,23 @@ class _AddPostsState extends State<AddPosts> {
                     },
                     body: toJSONString,
                   );
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Added successfully")));
-                  Navigator.of(context).pop();
+                  Map<String, dynamic> toMap = jsonDecode(response.body);
+                  if (toMap['status'] == "success") {
+                    Voting editedVoting = Voting.fromJson(toMap['data']);
+// sending to server
+                    // print(toJSONString);
+
+                    Provider.of<VotingProvider>(context, listen: false)
+                        .setVoting(editedVoting);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Added successfully")));
+                    Navigator.of(context).pop();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            "cannoted to Added: " + toMap['data'].toString())));
+                  }
 
                   print(response.body);
                 }

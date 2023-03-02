@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:voting_system/adminScreen/add_candidate.dart';
+import 'package:voting_system/adminScreen/manage_candidate.dart';
+import 'package:voting_system/adminScreen/show_candidate.dart';
 import 'package:voting_system/components/Custom_date_field.dart';
 import 'package:voting_system/components/Custom_voting_textfield.dart';
 
@@ -73,7 +74,7 @@ class _EditPostsState extends State<EditPosts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Voting"),
+        title: Text("Edit Voting"),
         backgroundColor: allBarColor,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -244,8 +245,7 @@ class _EditPostsState extends State<EditPosts> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          AddCandidate(votingId: widget.voting.id),
+                      builder: (context) => AddCandidate(voting: widget.voting),
                     ));
               },
               child: Text(

@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voting_system/models/candidate.dart';
 import 'package:voting_system/screens/login_screen.dart';
 
 import '../models/user.dart';
 
 class UserProvider with ChangeNotifier {
   User? user;
+  List<Candidate> candidates = [];
   bool isloggedIn() {
     return user != null;
   }

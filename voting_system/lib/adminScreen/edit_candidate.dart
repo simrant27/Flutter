@@ -9,6 +9,7 @@ import 'package:voting_system/components/Custom_voting_textfield.dart';
 import 'package:voting_system/components/custom_textfield.dart';
 import 'package:voting_system/models/candidate.dart';
 import 'package:voting_system/models/voting.dart';
+import 'package:voting_system/provider/candidate_provider.dart';
 import 'package:voting_system/provider/user_provider.dart';
 import 'package:voting_system/utils/constants/constants.dart';
 
@@ -17,19 +18,21 @@ import 'package:http/http.dart' as http;
 
 import '../provider/voting_provider.dart';
 
-class AddCandidate extends StatefulWidget {
-  String votingId;
-  AddCandidate({super.key, required this.votingId});
+class EditCandidates extends StatefulWidget {
+  // Voting voting;
+  Voting voting;
+  Candidate candidate;
+  EditCandidates({super.key, required this.candidate, required this.voting});
 
   @override
-  State<AddCandidate> createState() => _AddCandidateState();
+  State<EditCandidates> createState() => _EditCandidatesState();
 }
 
-class _AddCandidateState extends State<AddCandidate> {
+class _EditCandidatesState extends State<EditCandidates> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  final TextEditingController _tittleController = TextEditingController();
-  final TextEditingController _descriptionCOntroller = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   String? titleValidation(String? value) {
     if (value == null || value.isEmpty || value.trim() == '') {
@@ -45,12 +48,19 @@ class _AddCandidateState extends State<AddCandidate> {
     return null;
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _titleController.text = widget.candidate.name;
+    _descriptionController.text = widget.candidate.description;
+  }
+
   // final TextEditingController _description = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Voting"),
+        title: Text("Add Candidates"),
         backgroundColor: allBarColor,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -89,7 +99,7 @@ class _AddCandidateState extends State<AddCandidate> {
             CustomTextField(
               label: "Title",
               placeholder: "Enter title",
-              fieldController: _tittleController,
+              fieldController: _titleController,
               handleValidation: titleValidation,
             ),
             SizedBox(
@@ -98,7 +108,7 @@ class _AddCandidateState extends State<AddCandidate> {
             CustomTextField(
               label: "Description",
               placeholder: "Enter descriptiom",
-              fieldController: _descriptionCOntroller,
+              fieldController: _descriptionController,
               handleValidation: descriptionValidation,
             ),
             SizedBox(height: 16),
@@ -110,42 +120,48 @@ class _AddCandidateState extends State<AddCandidate> {
               onPressed: () async {
                 if (_formkey.currentState!.validate()) {
                   Map<String, dynamic> toSend = {
-                    "name": _tittleController.text,
-                    "description": _descriptionCOntroller.text,
+                    "name": _titleController.text,
+                    "description": _descriptionController.text
                   };
-                  //to json Sting
+                  // print(toSend["name"]);
+
                   String toJSONString = jsonEncode(toSend);
 
-                  //sending to server
                   User loggedInUser =
                       Provider.of<UserProvider>(context, listen: false).user!;
 
-                  var response = await http.post(
-                    Uri.parse("$baseURL/votings/${widget.votingId}/candidates"),
-                    headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': "Bearer ${loggedInUser.token}",
-                    },
-                    body: toJSONString,
-                  );
+                  var response = await http.put(
+                      Uri.parse(
+                          "$baseURL/votings/${widget.voting.id}/candidates/${widget.candidate.id}"),
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer ${loggedInUser.token}",
+                      },
+                      body: toJSONString);
 
                   var decodedResponse = jsonDecode(response.body);
                   if (decodedResponse['status'] == "success") {
-                    Candidate addedCandidate =
+                    Candidate editCandidate =
                         Candidate.fromJson(decodedResponse['data']);
-                    Provider.of<VotingProvider>(context, listen: false)
-                        .addCandiate(addedCandidate);
+                    Provider.of<CandidateProvider>(context, listen: false)
+                        .editCandidate(decodedResponse);
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Created successfully")));
+                        SnackBar(content: Text("Edited successfully")));
+
                     Navigator.of(context).pop();
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("cannoted to created: ")));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Problem occured: " +
+                            decodedResponse["data"].toString())));
+                    // print(decodedResponse["data"]);
                   }
                 }
+                // print(response);
               },
-              child: Text("Create Candidate"),
-            ) //display
+              child: Text("Update Candidate"),
+            ),
+
+            //display
           ]),
         ),
       )),

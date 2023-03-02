@@ -10,6 +10,7 @@ import '../utils/constants/constants.dart';
 class VotingProvider with ChangeNotifier {
   String accessToken = '';
   List<Voting> votings = [];
+  List<Candidate> candidates = [];
 
   VotingProvider() {
     init();
@@ -48,6 +49,21 @@ class VotingProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  // void editCandidate(Candidate candidate) {
+  //   int foundIndex = -1;
+  //   for (int i = 0; i < candidates.length; i++) {
+  //     if (candidates[i].id == candidate.id) {
+  //       foundIndex = i;
+  //     }
+  //   }
+  //   if (foundIndex == -1) {
+  //     candidates.add(candidate);
+  //   } else {
+  //     candidates[foundIndex] = candidate;
+  //   }
+  //   notifyListeners();
+  // }
 
   void addCandiate(Candidate candidateToAdd) {
     int foundIndex = -1;
