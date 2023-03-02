@@ -1,13 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:voting_system/components/Custom_date_field.dart';
 import 'package:voting_system/components/Custom_voting_textfield.dart';
 
 import 'package:voting_system/components/custom_textfield.dart';
+import 'package:voting_system/models/candidate.dart';
+import 'package:voting_system/models/voting.dart';
+import 'package:voting_system/provider/user_provider.dart';
 import 'package:voting_system/utils/constants/constants.dart';
 
+import '../models/user.dart';
+import 'package:http/http.dart' as http;
+
+import '../provider/voting_provider.dart';
+
 class AddCandidate extends StatefulWidget {
-  const AddCandidate({super.key});
+  String votingId;
+  AddCandidate({super.key, required this.votingId});
 
   @override
   State<AddCandidate> createState() => _AddCandidateState();
@@ -95,8 +107,42 @@ class _AddCandidateState extends State<AddCandidate> {
                 backgroundColor: allBarColor,
                 minimumSize: Size.fromHeight(42), // NEW
               ),
-              onPressed: () {
-                _formkey.currentState!.validate();
+              onPressed: () async {
+                if (_formkey.currentState!.validate()) {
+                  Map<String, dynamic> toSend = {
+                    "name": _tittleController.text,
+                    "description": _descriptionCOntroller.text,
+                  };
+                  //to json Sting
+                  String toJSONString = jsonEncode(toSend);
+
+                  //sending to server
+                  User loggedInUser =
+                      Provider.of<UserProvider>(context, listen: false).user!;
+
+                  var response = await http.post(
+                    Uri.parse("$baseURL/votings/${widget.votingId}/candidates"),
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': "Bearer ${loggedInUser.token}",
+                    },
+                    body: toJSONString,
+                  );
+
+                  var decodedResponse = jsonDecode(response.body);
+                  if (decodedResponse['status'] == "success") {
+                    Candidate addedCandidate =
+                        Candidate.fromJson(decodedResponse['data']);
+                    Provider.of<VotingProvider>(context, listen: false)
+                        .addCandiate(addedCandidate);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Created successfully")));
+                    Navigator.of(context).pop();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("cannoted to created: ")));
+                  }
+                }
               },
               child: Text("Create Candidate"),
             ) //display

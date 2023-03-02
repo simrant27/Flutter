@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voting_system/screens/login_screen.dart';
+import 'package:voting_system/screens/profile_screen.dart';
 import 'package:voting_system/screens/splash_screen.dart';
 
 import '../utils/constants/candidates.dart';
@@ -58,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
+                  builder: (context) => ProfileScreen(),
                 ));
               },
               icon: Icon(

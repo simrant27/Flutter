@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:voting_system/components/Custom_date_field.dart';
 import 'package:voting_system/components/Custom_voting_textfield.dart';
 
 import 'package:voting_system/components/custom_textfield.dart';
+import 'package:voting_system/models/user.dart';
+import 'package:voting_system/provider/user_provider.dart';
 import 'package:voting_system/utils/constants/constants.dart';
+import 'package:http/http.dart' as http;
 
 class AddPosts extends StatefulWidget {
   const AddPosts({super.key});
@@ -135,15 +141,39 @@ class _AddPostsState extends State<AddPosts> {
                 backgroundColor: allBarColor,
                 minimumSize: Size.fromHeight(50), // NEW
               ),
-              onPressed: () {
-                _formkey.currentState!.validate();
-                print(_tittleController.text);
-                print(_descriptionCOntroller.text);
-                print(_startDate);
-                print(_endDate);
-                // print(_date.millisecondsSinceEpoch);
-                // print(_startDateController.toString());
-                // print(_endDateController);
+              onPressed: () async {
+                // _formkey.currentState!.validate();
+                if (_formkey.currentState!.validate()) {
+                  Map<String, dynamic> toSend = {
+                    "title": _tittleController.text,
+                    "description": _descriptionCOntroller.text,
+                    "from": _startDate.millisecondsSinceEpoch,
+                    "to": _endDate.millisecondsSinceEpoch,
+                  };
+
+// to json string
+                  String toJSONString = jsonEncode(toSend);
+
+// sending to server
+                  print(toJSONString);
+
+                  User loggedInUser =
+                      Provider.of<UserProvider>(context, listen: false).user!;
+
+                  var response = await http.post(
+                    Uri.parse("$baseURL/votings"),
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': "Bearer ${loggedInUser.token}",
+                    },
+                    body: toJSONString,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Added successfully")));
+                  Navigator.of(context).pop();
+
+                  print(response.body);
+                }
               },
               child: Text("Create Post"),
             ) //display

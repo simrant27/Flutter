@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voting_system/adminScreen/allvotings.dart';
+import 'package:voting_system/provider/user_provider.dart';
 import 'package:voting_system/utils/constants/constants.dart';
 import 'package:voting_system/screens/home_screen.dart';
 import 'package:voting_system/screens/login_screen.dart';
@@ -65,14 +68,26 @@ class _SplashScreenState extends State<SplashScreen> {
       var jsonDecoded = jsonDecode(response.body);
       if (jsonDecoded['status'] == 'success') {
         print("Login found from last saved data");
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomeScreen()));
 
         Map<String, dynamic> obtainedUser = jsonDecoded['data']['user'];
         obtainedUser['token'] = savedToken;
 
         User userFromResponse = User.fromJson(obtainedUser);
-        return jsonDecoded['data']['user'];
+
+//put obtained user in provider
+        Provider.of<UserProvider>(context, listen: false)
+            .setUser(userFromResponse);
+
+// //navigate to homePage
+//         (userFromResponse.role == 'admin')
+//             ? Navigator.of(context).pushReplacement(
+//                 MaterialPageRoute(builder: (context) => AllVotings()))
+//             : Navigator.of(context).pushReplacement(
+//                 MaterialPageRoute(builder: (context) => HomeScreen()));
+
+        // return jsonDecoded['data']['user'];
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => AllVotings()));
       } else {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => LoginScreen()));

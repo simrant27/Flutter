@@ -1,43 +1,57 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/container.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:voting_system/adminScreen/add_post.dart';
-// import 'package:voting_system/adminScreen/edit_post.dart';
+// import 'package:intl/intl.dart';
+// import 'package:voting_system/adminScreen/add_candidate.dart';
+// import 'package:voting_system/components/Custom_date_field.dart';
+// import 'package:voting_system/components/Custom_voting_textfield.dart';
 
-// import '../utils/constants/candidates.dart';
-// import '../utils/constants/constants.dart';
+// import 'package:voting_system/components/custom_textfield.dart';
+// import 'package:voting_system/utils/constants/constants.dart';
 
-// class TEmp extends StatefulWidget {
-//   const TEmp({super.key});
+// class EditPosts extends StatefulWidget {
+//   const EditPosts({super.key});
 
 //   @override
-//   State<TEmp> createState() => _TEmpState();
+//   State<EditPosts> createState() => _EditPostsState();
 // }
 
-// class _TEmpState extends State<TEmp> {
+// class _EditPostsState extends State<EditPosts> {
+//   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+//   final TextEditingController _tittleController = TextEditingController();
+//   final TextEditingController _descriptionCOntroller = TextEditingController();
+//   final TextEditingController _dateController = TextEditingController();
+
+//   String? titleValidation(String? value) {
+//     if (value == null || value.isEmpty || value.trim() == '') {
+//       return 'Title validation';
+//     }
+//     return null;
+//   }
+
+//   String? descriptionValidation(String? value) {
+//     if (value == null || value.isEmpty || value.trim() == '') {
+//       return 'Enter a title';
+//     }
+//     return null;
+//   }
+
+//   String? dateValidation(String? value) {
+//     if (value == null || value.isEmpty || value.trim() == '') {
+//       return 'Enter description';
+//     }
+//     return null;
+//   }
+
+//   DateTime _date = DateTime.now();
+//   bool _isChecked = false;
+
+//   // final TextEditingController _description = TextEditingController();
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: AppBar(
-//         title: Text("All Votings"),
-//         centerTitle: true,
+//         title: Text("Edit Post"),
 //         backgroundColor: allBarColor,
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           Navigator.of(context).push(MaterialPageRoute(
-//             builder: (context) {
-//               return AddPosts();
-//             },
-//           ));
-//         },
-//         backgroundColor: allBarColor,
-//         child: Text(
-//           "+",
-//           style: TextStyle(
-//             fontSize: 40,
-//           ),
-//         ),
 //       ),
 //       bottomNavigationBar: BottomAppBar(
 //           child: Container(
@@ -66,80 +80,103 @@
 //           ],
 //         ),
 //       )),
-//       body: ListView.builder(
-//         itemCount: candidate.length,
-//         itemBuilder: (context, index) {
-//           return Container(
-//             margin: EdgeInsets.symmetric(vertical: 10),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               boxShadow: [
-//                 BoxShadow(
-//                     offset: Offset(0, 4),
-//                     blurRadius: 10,
-//                     color: Colors.black12),
+//       body: SafeArea(
+//           child: SingleChildScrollView(
+//         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+//         child: Form(
+//           key: _formkey,
+//           child: Column(children: [
+//             CustomTextField(
+//               label: "Title",
+//               placeholder: "Enter title",
+//               fieldController: _tittleController,
+//               handleValidation: titleValidation,
+//             ),
+//             SizedBox(
+//               height: 20,
+//             ),
+//             CustomTextField(
+//               label: "Description",
+//               placeholder: "Enter descriptiom",
+//               fieldController: _descriptionCOntroller,
+//               handleValidation: descriptionValidation,
+//             ),
+//             CustomDatePicker(
+//               label: "Start Date",
+//               placeholder: "Enter Start Date",
+//               fieldController: _dateController,
+//               // handleValidation: dateValidation,
+//               suffixIcon: Icons.calendar_month_outlined,
+//             ),
+//             CustomDatePicker(
+//               label: "End Date",
+//               placeholder: "Enter Start Date",
+//               fieldController: _dateController,
+//               // handleValidation: dateValidation,
+
+//               suffixIcon: Icons.calendar_month_outlined,
+//             ),
+
+//             SizedBox(
+//               height: 16,
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text(
+//                   "Enabled:",
+//                   style: TextStyle(
+//                     fontSize: 16.0,
+//                     fontWeight: FontWeight.w500,
+//                     color: kIconColor,
+//                   ),
+//                 ),
+//                 Checkbox(
+//                   value: _isChecked,
+//                   onChanged: (value) {
+//                     setState(() {
+//                       _isChecked = !_isChecked;
+//                     });
+//                   },
+//                 )
 //               ],
 //             ),
-//             child: ListTile(
-//               title: Text(candidate[index]['title']),
-//               subtitle: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(candidate[index]['description']),
-//                   Row(
-//                     children: [
-//                       Container(
-//                         child: Text("active"),
-//                         padding:
-//                             EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-//                         margin:
-//                             EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-
-//                         // color: Colors.red,
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(5),
-//                           color: candidate[index]['active']
-//                               ? Colors.green.shade500
-//                               : Colors.red,
-//                         ),
-//                       ),
-//                       Container(
-//                         child: Text(
-//                           "shown",
-//                           style: TextStyle(
-//                             // fontWeight: FontWeight.bold,
-//                             color: Colors.white,
-//                           ),
-//                         ),
-//                         padding:
-//                             EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-//                         margin:
-//                             EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-
-//                         // color: Colors.red,
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(5),
-//                           color: candidate[index]['shown']
-//                               ? Colors.green
-//                               : Colors.red.shade400,
-//                         ),
-//                       )
-//                     ],
-//                   ),
-//                 ],
+//             SizedBox(
+//               height: 16,
+//             ),
+//             ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: Colors.grey.shade200,
+//                 foregroundColor: Colors.black54,
+//                 minimumSize: Size.fromHeight(50), // NEW
 //               ),
-//               trailing: IconButton(
-//                 icon: Icon(Icons.edit),
-//                 onPressed: () {
-//                   Navigator.of(context).push(MaterialPageRoute(
-//                     builder: (context) => EditPosts(),
-//                   ));
-//                 },
+//               onPressed: () {
+//                 Navigator.push(
+//                     context,
+//                     MaterialPageRoute(
+//                       builder: (context) => AddCandidate(),
+//                     ));
+//               },
+//               child: Text(
+//                 "Add Candidates",
 //               ),
 //             ),
-//           );
-//         },
-//       ),
+//             SizedBox(
+//               height: 16,
+//             ),
+//             ElevatedButton(
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: allBarColor,
+//                 minimumSize: Size.fromHeight(50), // NEW
+//               ),
+//               onPressed: () {
+//                 _formkey.currentState!.validate();
+//               },
+//               child: Text("Update Posts"),
+//             ) //display
+//           ]),
+//         ),
+//       )),
 //     );
 //   }
 // }
