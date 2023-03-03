@@ -50,20 +50,41 @@ class VotingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // void editCandidate(Candidate candidate) {
-  //   int foundIndex = -1;
-  //   for (int i = 0; i < candidates.length; i++) {
-  //     if (candidates[i].id == candidate.id) {
-  //       foundIndex = i;
-  //     }
-  //   }
-  //   if (foundIndex == -1) {
-  //     candidates.add(candidate);
-  //   } else {
-  //     candidates[foundIndex] = candidate;
-  //   }
-  //   notifyListeners();
-  // }
+  void editCandidate(Candidate candidate) {
+    int foundIndex = -1;
+    for (int i = 0; i < votings.length; i++) {
+      if (votings[i].id == candidate.votingId) {
+        foundIndex = i;
+      }
+    }
+    if (foundIndex == -1) throw Exception("Voting not found");
+    //  for(int i=0;i< votings)
+    int foundCandidateIndex = -1;
+    for (int i = 0; i < candidates.length; i++) {
+      if (candidates[i].id == candidate.id) {
+        foundCandidateIndex = i;
+      }
+      if (foundCandidateIndex == -1) {
+        candidates.add(candidate);
+      } else {
+        candidates[foundCandidateIndex] = candidate;
+      }
+    }
+    notifyListeners();
+  }
+  //   void deleteCandidate(Candidate candidate) {
+//     int foundIndex = -1;
+//     for (int i = 0; i < candidates.length; i++) {
+//       if (candidates[i].id == candidate.id) {
+//         foundIndex = i;
+//       }
+//     }
+//     if (foundIndex != -1) {
+//       candidates.removeAt(foundIndex);
+//     }
+//     notifyListeners();
+//   }
+// }
 
   void addCandiate(Candidate candidateToAdd) {
     int foundIndex = -1;

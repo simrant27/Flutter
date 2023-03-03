@@ -143,8 +143,8 @@ class _EditCandidatesState extends State<EditCandidates> {
                   if (decodedResponse['status'] == "success") {
                     Candidate editCandidate =
                         Candidate.fromJson(decodedResponse['data']);
-                    Provider.of<CandidateProvider>(context, listen: false)
-                        .editCandidate(decodedResponse);
+                    Provider.of<VotingProvider>(context, listen: false)
+                        .editCandidate(editCandidate);
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Edited successfully")));
 

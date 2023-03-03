@@ -73,6 +73,7 @@ class _AddCandidateState extends State<AddCandidate> {
       Candidate addedCandidate = Candidate.fromJson(decodedResponse['data']);
       Provider.of<VotingProvider>(context, listen: false)
           .addCandiate(addedCandidate);
+
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Created successfully")));
       Navigator.of(context).pop();
@@ -204,9 +205,9 @@ class _AddCandidateState extends State<AddCandidate> {
                                       var decoded = jsonDecode(response.body);
 
                                       if (decoded['status'] == "success") {
-                                        Provider.of<CandidateProvider>(context,
-                                                listen: false)
-                                            .deleteCandidate(c);
+                                        // Provider.of<VotingProvider>(context,
+                                        //         listen: false)
+                                        //     .deleteCandidate(c);
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                                 content: Text(

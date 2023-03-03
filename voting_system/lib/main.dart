@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => VotingProvider()),
-        ChangeNotifierProvider(create: (context) => CandidateProvider()),
       ],
       child: MaterialApp(
         title: 'Form Validation',
